@@ -1,0 +1,38 @@
+name: Déploiement en Production (Merge sur main)
+
+on:
+  push:
+    branches:
+      - main  # Le workflow se déclenche lorsque vous fusionnez du code dans la branche 'main'
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. Installer l'environnement Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'  # Vous pouvez spécifier une version si nécessaire
+          channel: 'stable'
+
+      # 2. Installer les dépendances du projet
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      # 3. Construire l'application Flutter pour le Web
+      - name: Build Web Application
+        run: **flutter build web** # La commande que vous avez spécifiée
+
+      # 4. Déploiement vers Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DANE_PORTFOLIO }}'
+          channelId: live
+          projectId: **dane-portfolio** # Remplacez si votre ID de projet est différent

@@ -1,0 +1,39 @@
+name: Aperçu du Déploiement (Pull Request)
+
+on:
+  pull_request:
+    branches:
+      - main # Exécute le workflow sur les PR ciblant la branche principale
+
+jobs:
+  build_web_preview:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. Installer l'environnement Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+
+      # 2. Installer les dépendances du projet
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      # 3. Construire l'application Flutter pour le Web
+      - name: Build Web Application
+        run: flutter build web
+
+      # 4. Déploiement vers Firebase Hosting Preview Channel
+      # Le canal d'aperçu est automatiquement nommé d'après le numéro de la PR
+      - name: Deploy to Firebase Hosting Preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DANE_PORTFOLIO }}'
+          projectId: **dane-portfolio** # Remplacez si nécessaire
