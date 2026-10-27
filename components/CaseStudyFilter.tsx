@@ -28,7 +28,7 @@ export function CaseStudyFilter({ items, locale, labels }: { items: WorkItem[]; 
       <div className="case-list">
         {visible.map((item) => (
           <article className="case-row" key={item.slug}>
-            <Link className="case-row-image" href={item.href} tabIndex={-1} aria-hidden="true">
+            <Link className={item.contain ? "case-row-image fit-contain" : "case-row-image"} href={item.href} tabIndex={-1} aria-hidden="true">
               <Image src={item.image} alt="" fill sizes="(max-width: 820px) 100vw, 45vw" />
             </Link>
             <div className="case-row-copy">

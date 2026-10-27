@@ -136,12 +136,14 @@ export type WorkItem = {
   tools: string[];
   layers: LayerId[];
   status?: string;
+  /** Show the whole image (multi-panel figure) instead of cropping it to fill the frame. */
+  contain?: boolean;
 };
 
 /** Every project (case studies and professional work) in display order: the flagship study first. */
 export function getWorkItems(locale: Locale): WorkItem[] {
   const r = routes[locale];
-  const cases = getCaseStudies(locale).map((p): WorkItem => ({ slug: p.slug, href: r.project(p.slug), title: p.title, eyebrow: p.eyebrow, period: p.period, organization: p.organization, summary: p.summary, image: p.image, imageAlt: p.imageAlt, tools: p.tools, layers: projectLayers[p.slug] ?? [] }));
+  const cases = getCaseStudies(locale).map((p): WorkItem => ({ slug: p.slug, href: r.project(p.slug), title: p.title, eyebrow: p.eyebrow, period: p.period, organization: p.organization, summary: p.summary, image: p.image, imageAlt: p.imageAlt, tools: p.tools, layers: projectLayers[p.slug] ?? [], contain: Boolean(p.figure) }));
   const pros = getProfessionalProjects(locale).map((p): WorkItem => ({ slug: p.slug, href: r.professionalProject(p.slug), title: p.shortTitle, eyebrow: p.eyebrow, period: p.period, organization: p.organization, summary: p.summary, image: p.image, imageAlt: p.imageAlt, tools: p.tools, layers: projectLayers[p.slug] ?? [], status: p.status }));
   const [flagship, ...otherCases] = cases;
   return [flagship, ...pros, ...otherCases].filter((item): item is WorkItem => Boolean(item));

@@ -4,7 +4,6 @@ import { notFound, redirect } from "next/navigation";
 import { FiArrowLeft, FiArrowRight, FiDownload, FiExternalLink } from "react-icons/fi";
 import { Footer } from "@/components/Footer";
 import { SiteHeader } from "@/components/SiteHeader";
-import { NdviLegend } from "@/components/WorkCard";
 import { getProfessionalProjects, getProjects, getWorkItems, layerLine, routes, ui, type Locale } from "@/i18n";
 
 const copy = {
@@ -51,16 +50,30 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
           {project.externalUrl ? <a className="button secondary compact" href={project.externalUrl} target="_blank" rel="noreferrer">{t.resource} <FiExternalLink aria-hidden="true" /><span className="sr-only"> ({newTab})</span></a> : null}
         </div>
 
-        <header className="cs-hero">
-          <Image src={project.image} alt={project.imageAlt} fill priority sizes="100vw" />
-          <div className="shell cs-hero-inner">
-            <div className="cs-title">
-              <p className="eyebrow light">{project.eyebrow} · {project.period}</p>
-              <h1>{project.title}</h1>
+        {project.figure ? (
+          <header className="cs-figure-hero">
+            <div className="shell">
+              <div className="cs-title">
+                <p className="eyebrow light">{project.eyebrow} · {project.period}</p>
+                <h1>{project.title}</h1>
+              </div>
+              <figure className="cs-figure">
+                <Image src={project.image} alt={project.imageAlt} width={project.figure.width} height={project.figure.height} priority sizes="(max-width: 1100px) 100vw, 1040px" />
+                <figcaption>{project.figure.caption}</figcaption>
+              </figure>
             </div>
-            {project.slug === "secheresse-zanzan" ? <NdviLegend locale={locale} className="ndvi-legend cs-legend" /> : null}
-          </div>
-        </header>
+          </header>
+        ) : (
+          <header className="cs-hero">
+            <Image src={project.image} alt={project.imageAlt} fill priority sizes="100vw" />
+            <div className="shell cs-hero-inner">
+              <div className="cs-title">
+                <p className="eyebrow light">{project.eyebrow} · {project.period}</p>
+                <h1>{project.title}</h1>
+              </div>
+            </div>
+          </header>
+        )}
 
         <section className="shell cs-intro" id="synthese">
           <div>

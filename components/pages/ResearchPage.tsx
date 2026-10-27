@@ -25,8 +25,8 @@ const copy = {
     explore: "Étude détaillée",
     pdf: "Mémoire PDF",
     memories: [
-      { kicker: "Master Télédétection & SIG · 2024", title: "Apport de la télédétection à l’évaluation de la sécheresse dans le Zanzan (1984–2053)", text: "Indices ETCCDI, occupation du sol et températures de surface.", slug: "secheresse-zanzan", image: "/images/zanzan-drought-map.png", pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20TELEDETECTION%20ET%20SIG.pdf" },
-      { kicker: "Master Géographie · 2023", title: "Difficultés d’approvisionnement en eau potable et problèmes de santé à Agnibilékrou", text: "Enquête auprès de 350 ménages · statistiques et cartographie des vulnérabilités.", slug: "eau-sante-agnibilekrou", image: "/images/agnibilekrou-water.png", pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20GEOGRAPHIE.pdf" },
+      { kicker: "Master Télédétection & SIG · 2024", title: "Apport de la télédétection à l’évaluation de la sécheresse dans le Zanzan (1984–2053)", text: "Indices ETCCDI, occupation du sol et températures de surface.", slug: "secheresse-zanzan", image: "/images/zanzan-temperature-1984-2024.png", contain: true, pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20TELEDETECTION%20ET%20SIG.pdf" },
+      { kicker: "Master Géographie · 2023", title: "Difficultés d’approvisionnement en eau potable et problèmes de santé à Agnibilékrou", text: "Enquête auprès de 350 ménages · statistiques et cartographie des vulnérabilités.", slug: "eau-sante-agnibilekrou", image: "/images/agnibilekrou-water.png", contain: false, pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20GEOGRAPHIE.pdf" },
     ],
   },
   en: {
@@ -47,8 +47,8 @@ const copy = {
     explore: "Detailed study",
     pdf: "Dissertation PDF",
     memories: [
-      { kicker: "Master’s in Remote Sensing & GIS · 2024", title: "Remote sensing contribution to drought assessment in Zanzan (1984–2053)", text: "ETCCDI indices, land cover and land-surface temperatures.", slug: "secheresse-zanzan", image: "/images/zanzan-drought-map.png", pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20TELEDETECTION%20ET%20SIG.pdf" },
-      { kicker: "Master’s in Geography · 2023", title: "Drinking-water supply challenges and health issues in Agnibilékrou", text: "Survey of 350 households · statistics and vulnerability mapping.", slug: "eau-sante-agnibilekrou", image: "/images/agnibilekrou-water.png", pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20GEOGRAPHIE.pdf" },
+      { kicker: "Master’s in Remote Sensing & GIS · 2024", title: "Remote sensing contribution to drought assessment in Zanzan (1984–2053)", text: "ETCCDI indices, land cover and land-surface temperatures.", slug: "secheresse-zanzan", image: "/images/zanzan-temperature-1984-2024.png", contain: true, pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20TELEDETECTION%20ET%20SIG.pdf" },
+      { kicker: "Master’s in Geography · 2023", title: "Drinking-water supply challenges and health issues in Agnibilékrou", text: "Survey of 350 households · statistics and vulnerability mapping.", slug: "eau-sante-agnibilekrou", image: "/images/agnibilekrou-water.png", contain: false, pdf: "/documents/MEMOIRE%20DE%20RECHERCHE%20GEOGRAPHIE.pdf" },
     ],
   },
 } as const;
@@ -97,7 +97,7 @@ export function ResearchPage({ locale }: { locale: Locale }) {
           <div className="memoir-grid">
             {t.memories.map((memory) => (
               <article className="memoir-card" key={memory.slug}>
-                <div className="memoir-image"><Image src={memory.image} alt="" fill sizes="(max-width: 820px) 100vw, 50vw" /><span>{memory.kicker}</span></div>
+                <div className={memory.contain ? "memoir-image fit-contain" : "memoir-image"}><Image src={memory.image} alt="" fill sizes="(max-width: 820px) 100vw, 50vw" /><span>{memory.kicker}</span></div>
                 <div className="memoir-copy">
                   <h3>{memory.title}</h3>
                   <p>{memory.text}</p>
