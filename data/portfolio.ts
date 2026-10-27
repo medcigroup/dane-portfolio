@@ -23,6 +23,8 @@ export type Project = {
   sourceNote?: string;
   externalUrl?: string;
   documentUrl?: string;
+  /** A multi-panel figure (maps with their own legends): shown whole, never cropped. */
+  figure?: { width: number; height: number; caption: string };
 };
 
 export const projects: Project[] = [
@@ -34,9 +36,14 @@ export const projects: Project[] = [
     organization: "CURAT · Université Félix Houphouët-Boigny",
     summary:
       "Quarante années d’observations climatiques et satellitaires, complétées par des projections jusqu’en 2053, pour caractériser la sécheresse et éclairer l’adaptation territoriale.",
-    image: "/images/zanzan-drought-map.png",
+    image: "/images/zanzan-temperature-1984-2024.png",
     imageAlt:
-      "Visualisation satellitaire des contrastes de végétation et de sécheresse dans le Zanzan",
+      "Trois cartes de la température de surface moyenne du district du Zanzan : (a) 1984–1990, (b) 2000 et (c) 2024, montrant l’extension des zones les plus chaudes du nord vers le sud",
+    figure: {
+      width: 880,
+      height: 414,
+      caption: "Température de surface moyenne (°C) du district du Zanzan : (a) 1984–1990, (b) 2000, (c) 2024. Source : mémoire de Master Télédétection et SIG, 2024.",
+    },
     tools: ["Landsat 5–9", "QGIS", "Python", "Google Earth Engine", "SNAP"],
     question:
       "Comment la sécheresse a-t-elle évolué dans le district autonome du Zanzan et quelles zones pourraient devenir les plus vulnérables à l’horizon 2053 ?",
