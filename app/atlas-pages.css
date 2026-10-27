@@ -442,3 +442,4 @@ main { animation: page-enter 420ms cubic-bezier(.2, .7, .2, 1) both; }
   .fit-contain img { padding: 4px; }
 }
 .memoir-image.fit-contain img { padding: 40px 8px 6px; }
+.cs-figure.photo img { max-height: 620px; object-fit: cover; object-position: center 60%; }
