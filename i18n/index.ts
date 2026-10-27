@@ -66,7 +66,7 @@ export function getCaseStudies(locale: Locale): Project[] {
   return getProjects(locale).filter(({ slug }) => !professionalSlugs.has(slug));
 }
 
-export const cvUrl = "/documents/CV-KAMENAN-Dane-Assoumou-Junior.pdf";
+export const cvUrl = "/documents/CV-KAMENAN-Dane-Assoumou-Junior_2026.pdf";
 
 export const ui = {
   fr: {
