@@ -23,8 +23,11 @@ export type Project = {
   sourceNote?: string;
   externalUrl?: string;
   documentUrl?: string;
-  /** A multi-panel figure (maps with their own legends): shown whole, never cropped. */
-  figure?: { width: number; height: number; caption: string };
+  /**
+   * Show the image as a captioned figure under the title instead of a full-bleed hero.
+   * Maps with their own legends stay whole everywhere; a photo (`photo: true`) may still be cropped in cards.
+   */
+  figure?: { width: number; height: number; caption: string; photo?: boolean };
 };
 
 export const projects: Project[] = [
@@ -221,8 +224,9 @@ export const projects: Project[] = [
     organization: "STRM–CURAT · Tiébissou",
     summary:
       "Une base géographique et un dispositif de collecte pour suivre les espaces agricoles, les dynamiques écologiques et les services écosystémiques.",
-    image: "/images/hero-wetland-satellite.png",
-    imageAlt: "Image satellite d’une zone humide traversée de chenaux et bordée de cultures",
+    image: "/images/zone-de-kan.jpeg",
+    imageAlt: "Équipe de terrain en gilets de sécurité relevant des observations dans la végétation dense de la zone humide du Kan",
+    figure: { width: 1040, height: 780, photo: true, caption: "Collecte de données sur le terrain, zone humide du Kan (Tiébissou), 2024." },
     tools: ["QGIS", "KoboCollect", "QField", "PostgreSQL", "PostGIS"],
     question:
       "Comment structurer une observation reproductible de la zone humide et rendre les données de terrain directement exploitables ?",

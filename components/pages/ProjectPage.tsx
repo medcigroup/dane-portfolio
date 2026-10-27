@@ -57,7 +57,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                 <p className="eyebrow light">{project.eyebrow} · {project.period}</p>
                 <h1>{project.title}</h1>
               </div>
-              <figure className="cs-figure">
+              <figure className={project.figure.photo ? "cs-figure photo" : "cs-figure"}>
                 <Image src={project.image} alt={project.imageAlt} width={project.figure.width} height={project.figure.height} priority sizes="(max-width: 1100px) 100vw, 1040px" />
                 <figcaption>{project.figure.caption}</figcaption>
               </figure>
