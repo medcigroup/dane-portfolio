@@ -3,7 +3,8 @@ import Link from "next/link";
 import { FiDownload } from "react-icons/fi";
 import { Footer } from "@/components/Footer";
 import { SiteHeader } from "@/components/SiteHeader";
-import { cvUrl, layers, routes, type Locale } from "@/i18n";
+import { SkillsMatrix } from "@/components/SkillsMatrix";
+import { cvUrl, routes, type Locale } from "@/i18n";
 
 const copy = {
   fr: {
@@ -22,16 +23,6 @@ const copy = {
       { year: "2024", type: "Formation", title: "Master Télédétection et SIG", detail: "CURAT · mention Bien" },
       { year: "2025", type: "Expérience", title: "Ingénieur stagiaire télédétection & SIG", detail: "SODEMI · pegmatites" },
       { year: "Depuis avr. 2025", type: "en cours", title: "CTO — GROWAA", detail: "Agriculture de précision" },
-    ],
-    skillsEyebrow: "Compétences",
-    skillsTitle: "Cinq couches, une même carte",
-    skillsText: "Chaque compétence est reliée au projet qui la prouve, comme une couche reliée à sa source.",
-    skills: [
-      { label: "Télédétection", tools: "GEE · Landsat · SNAP · ENVI", proof: "Zanzan", layer: "rs" },
-      { label: "Analyse spatiale", tools: "QGIS · GeoPandas · Rasterio", proof: "Zanzan · SODEMI", layer: "gis" },
-      { label: "Données & bases", tools: "PostgreSQL · PostGIS · Firebase", proof: "Kan · GROWAA", layer: null },
-      { label: "Collecte terrain", tools: "KoboCollect · QField", proof: "Kan · Agnibilékrou", layer: "field" },
-      { label: "Développement", tools: "Python · Flutter · JavaScript", proof: "GROWAA · Pegmatites", layer: "app" },
     ],
     facts: [["Localisation", "Abidjan, Côte d’Ivoire"], ["Spécialité", "Télédétection & SIG"], ["Langues", "Français · Anglais"]],
     cta: "Échanger sur un projet",
@@ -53,22 +44,10 @@ const copy = {
       { year: "2025", type: "Experience", title: "Remote sensing & GIS engineering intern", detail: "SODEMI · pegmatites" },
       { year: "Since Apr 2025", type: "current", title: "CTO — GROWAA", detail: "Precision agriculture" },
     ],
-    skillsEyebrow: "Skills",
-    skillsTitle: "Five layers, one map",
-    skillsText: "Each skill is linked to the project that proves it, like a layer linked to its source.",
-    skills: [
-      { label: "Remote sensing", tools: "GEE · Landsat · SNAP · ENVI", proof: "Zanzan", layer: "rs" },
-      { label: "Spatial analysis", tools: "QGIS · GeoPandas · Rasterio", proof: "Zanzan · SODEMI", layer: "gis" },
-      { label: "Data & databases", tools: "PostgreSQL · PostGIS · Firebase", proof: "Kan · GROWAA", layer: null },
-      { label: "Field data collection", tools: "KoboCollect · QField", proof: "Kan · Agnibilékrou", layer: "field" },
-      { label: "Development", tools: "Python · Flutter · JavaScript", proof: "GROWAA · Pegmatites", layer: "app" },
-    ],
     facts: [["Location", "Abidjan, Côte d’Ivoire"], ["Specialty", "Remote sensing & GIS"], ["Languages", "French · English"]],
     cta: "Discuss a project",
   },
 } as const;
-
-const layerColor = (id: string | null) => layers.find((layer) => layer.id === id)?.color ?? "#9fb0bf";
 
 export function BackgroundPage({ locale }: { locale: Locale }) {
   const t = copy[locale];
@@ -104,18 +83,7 @@ export function BackgroundPage({ locale }: { locale: Locale }) {
         </ol>
       </section>
 
-      <section className="skills-band">
-        <div className="shell skills-inner">
-          <div>
-            <p className="eyebrow light">{t.skillsEyebrow}</p>
-            <h2>{t.skillsTitle}</h2>
-            <p>{t.skillsText}</p>
-          </div>
-          <ul className="layer-stack">
-            {t.skills.map((skill) => <li key={skill.label}><i aria-hidden="true" style={{ background: layerColor(skill.layer) }} /><span><strong>{skill.label}</strong><small>{skill.tools}</small></span><em>{skill.proof}</em></li>)}
-          </ul>
-        </div>
-      </section>
+      <SkillsMatrix locale={locale} />
 
       <section className="shell bg-facts">
         {t.facts.map(([label, value]) => <div key={label}><p>{label}</p><strong>{value}</strong></div>)}
